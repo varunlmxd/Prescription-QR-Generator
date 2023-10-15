@@ -19,23 +19,25 @@ const generatePDF = async (req, res) => {
       count+=1;
       if(element.name === "Paracetamol"){
         element.name = 2001
-        id+='2001'
+        id+='1:' + element.qtd + ','
+
       }
       else if(element.name === "Paracetamol 650"){
         element.name = 2002
-        id+='2002'
+        id+='2:' + element.qtd +','
       }
       else if(element.name === "Azithromycin"){
         element.name = 2003
-        id+='2003'
+        id+='3:' + element.qtd + ','
       }
       else if(element.name === "Aspirin"){
         element.name = 2004
-        id+='2004'
+        id+='4:' + element.qtd + ','
+
       }
     });
 
-    const qrCodeData = count+ JSON.stringify(data)+id;
+    const qrCodeData = "VALID " +count+ JSON.stringify(data)+id;
     const qrCodePath = './public/qr.png';
     await QRCode.toFile(qrCodePath, qrCodeData, {
       errorCorrectionLevel: 'H',
